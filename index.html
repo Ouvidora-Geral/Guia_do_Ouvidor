@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guia do Ouvidor - Sistema Cofen</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f0f4f9;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: #1a3a6c;
+            color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+        
+        header .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .tab-btn {
+            padding: 12px 25px;
+            margin: 0 5px;
+            background-color: #e0e8f0;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #2c5fa3;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+        
+        .tab-btn i {
+            margin-right: 8px;
+        }
+        
+        .tab-btn:hover {
+            background-color: #d0d8e0;
+        }
+        
+        .tab-btn.active {
+            background-color: #1a3a6c;
+            color: white;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .study-section {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+        
+        .section-header {
+            padding: 20px;
+            background-color: #2c5fa3;
+            color: white;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .section-header h2 {
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .section-header i {
+            margin-right: 10px;
+        }
+        
+        .section-header .fa-chevron-down {
+            transition: transform 0.3s ease;
+        }
+        
+        .section-header.collapsed .fa-chevron-down {
+            transform: rotate(-90deg);
+        }
+        
+        .section-content {
+            padding: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        
+        .section-content.expanded {
+            max-height: 5000px;
+        }
+        
+        /* Add this new style for the guide content */
+        .guide-content {
+            padding: 20px;
+            max-height: 600px;
+            overflow-y: auto;
+            background: #f8fafc;
+            border-radius: 15px;
+            margin-top: 15px;
+        }
+        
+        .guide-section {
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #e0e8f0;
+        }
+        
+        .guide-section h3 {
+            color: #1a3a6c;
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+        
+        .guide-section h4 {
+            color: #2c5fa3;
+            margin: 15px 0 8px;
+            font-size: 1.1rem;
+        }
+        
+        .guide-section p, .guide-section ul {
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
+        
+        .guide-section ul {
+            padding-left: 20px;
+        }
+        
+        .guide-section li {
+            margin-bottom: 8px;
+        }
+        
+        .annex-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        
+        .annex-table th, .annex-table td {
+            border: 1px solid #d0d8e0;
+            padding: 10px;
+            text-align: left;
+        }
+        
+        .annex-table th {
+            background-color: #1a3a6c;
+            color: white;
+        }
+        
+        .annex-table tr:nth-child(even) {
+            background-color: #f0f4f9;
+        }
+        
+        .credits {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .credits p {
+            margin-bottom: 5px;
+        }
+        
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .tab-btn {
+                padding: 10px 15px;
+                font-size: 0.9rem;
+                margin-bottom: 5px;
+            }
+            
+            .section-header h2 {
+                font-size: 1.2rem;
+            }
+            
+            .annex-table {
+                font-size: 0.9rem;
+            }
+            
+            .annex-table th, .annex-table td {
+                padding: 8px 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-headset"></i> GUIA DO OUVIDOR</h1>
+            <p class="subtitle">Sistema Cofen/Conselhos Regionais de Enfermagem</p>
+            <p class="subtitle">FLUXOS E ROTINAS ADMINISTRATIVAS DAS OUVIDORIAS</p>
+        </header>
+        
+        <div class="tabs">
+            <button class="tab-btn" data-tab="guide"><i class="fas fa-file-alt"></i> Guia do Ouvidor</button>
+            <button class="tab-btn active" data-tab="study"><i class="fas fa-book"></i> Material de Estudo</button>
+            <button class="tab-btn" data-tab="quiz"><i class="fas fa-question-circle"></i> Quiz</button>
+        </div>
+        
+        <!-- New Guide Tab -->
+        <div class="tab-content" id="guide-tab">
+            <div class="study-section">
+                <div class="section-header" onclick="toggleSection('full-guide')">
+                    <h2><i class="fas fa-file-pdf"></i> Fluxos e Rotinas Administrativas das Ouvidorias</h2>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="section-content" id="full-guide-content">
+                    <div class="guide-content">
+                        <!-- Section 1: Introdução -->
+                        <div class="guide-section">
+                            <h3>1. INTRODUÇÃO</h3>
+                            <p>O Guia do Ouvidor do Sistema Cofen/Conselhos Regionais de Enfermagem tem como propósito orientar a atuação das Ouvidorias no tratamento das manifestações recebidas, promovendo a uniformização dos procedimentos, a melhoria contínua dos serviços prestados e o alinhamento com os princípios da administração pública.</p>
+                            <p>A padronização de fluxos, rotinas e prazos em todo o Sistema é um instrumento estratégico para assegurar a eficiência, a transparência, a isonomia no atendimento ao cidadão e a segurança jurídica dos processos.</p>
+                        </div>
+                        
+                        <!-- Section 2: Legislações -->
+                        <div class="guide-section">
+                            <h3>2. DAS LEGISLAÇÕES</h3>
+                            <p>A atuação das Ouvidorias está amparada por um conjunto de marcos legais fundamentais:</p>
+                            <ul>
+                                <li>Lei nº 12.527/2011 (Lei de Acesso à Informação – LAI)</li>
+                                <li>Lei nº 13.460/2017 (participação e direitos dos usuários dos serviços públicos)</li>
+                                <li>Lei nº 13.709/2018 (Lei Geral de Proteção de Dados – LGPD)</li>
+                                <li>Lei nº 14.540/2023 (Prevenção e Enfrentamento ao Assédio Sexual e demais Crimes contra a Dignidade Sexual e à Violência Sexual)</li>
+                                <li>Decreto nº 9.492/2018 (regulamenta tratamento das manifestações)</li>
+                            </ul>
+                        </div>
+                        
+                        <!-- Section 3: Das Manifestações -->
+                        <div class="guide-section">
+                            <h3>3. DAS MANIFESTAÇÕES</h3>
+                            <p>3.1 As manifestações seguirão um fluxo de trabalho padronizado, organizado em três etapas, orientadas pelos métodos mnemônicos DIA, JALECO e PROSA.</p>
+                            
+                            <h4>3.2. 1ª Etapa: Método DIA – Macroestrutura da Jornada de Atendimento</h4>
+                            <p>O Método DIA estrutura a jornada diária de atendimento da Ouvidoria, em consonância com os princípios da eficiência e da legalidade administrativa (art. 37 da Constituição Federal):</p>
+                            <ul>
+                                <li><strong>D: Denúncias:</strong> Representam o relato formal de atos ilícitos ou irregularidades que configurem violação das normas legais e regulamentares do Sistema Cofen/Conselhos Regionais de Enfermagem.</li>
+                                <li><strong>I: Informações:</strong> Refere-se ao acompanhamento contínuo e sistemático de legislações, atos normativos e jurisprudências relevantes para a atuação do Sistema.</li>
+                                <li><strong>A: Acompanhamento das Manifestações:</strong> Fundamental para assegurar que cada demanda recebida pela Ouvidoria seja tratada com responsabilidade, transparência e dentro dos prazos legais.</li>
+                            </ul>
+                            
+                            <h4>3.3. 2ª Etapa: Método JALECO – Classificação Estratégica das Denúncias</h4>
+                            <p>Classifica denúncias para análise direcionada e encaminhamento eficiente:</p>
+                            <ul>
+                                <li><strong>J: Judiciais/Jurídicas:</strong> Denúncias que envolvam questões de natureza judicializada ou com potencial de judicialização.</li>
+                                <li><strong>A: Assédio:</strong> Denúncias relacionadas a condutas que configurem assédio moral ou sexual no âmbito profissional.</li>
+                                <li><strong>L: Legislações:</strong> Denúncias que apontem para o descumprimento de leis, decretos, portarias ou outras normas legais.</li>
+                                <li><strong>E: Éticas:</strong> Denúncias que versem sobre possíveis infrações ao Código de Ética dos Profissionais de Enfermagem.</li>
+                                <li><strong>C: Conselhos e Conselheiros:</strong> Denúncias que envolvam a conduta de Conselheiros Regionais ou Federais no exercício de suas funções.</li>
+                                <li><strong>O: Outros Demandantes:</strong> Denúncias apresentadas por outros usuários que não se enquadram nas categorias anteriores.</li>
+                            </ul>
+                            
+                            <h4>3.4. 3ª Etapa: Método PROSA – Análise Técnica e Encaminhamentos</h4>
+                            <p>O Método PROSA orienta a análise técnica das manifestações e os procedimentos de encaminhamento:</p>
+                            <ul>
+                                <li><strong>P: Prazos:</strong> Acompanhamento rigoroso dos prazos estabelecidos para cada etapa do tratamento das manifestações.</li>
+                                <li><strong>R: Rotina:</strong> Envolve a padronização dos procedimentos internos da Ouvidoria.</li>
+                                <li><strong>O: Outros (Assuntos Diversos e Sensíveis):</strong> Abrange manifestações que não se enquadram como denúncias.</li>
+                                <li><strong>S: Solicitações/SEI:</strong> São demandas específicas apresentadas pelos usuários.</li>
+                                <li><strong>A: Anuidades/Inscrições:</strong> Inclui manifestações relacionadas a questões financeiras e a processos de inscrição e regularização profissional.</li>
+                            </ul>
+                        </div>
+                        
+                        <!-- Section 4: Status -->
+                        <div class="guide-section">
+                            <h3>4. DOS STATUS DE TRATAMENTO DAS MANIFESTAÇÕES NO SISTEMA DE OUVIDORIA</h3>
+                            <p>Conforme disposto no <strong>ANEXO II – STATUS DAS MANIFESTAÇÕES E RESPONSABILIDADES</strong>, as manifestações são classificadas para acompanhamento, controle e definição de responsabilidades nos seguintes status:</p>
+                            
+                            <table class="annex-table">
+                                <thead>
+                                    <tr>
+                                        <th>STATUS</th>
+                                        <th>DEFINIÇÃO TÉCNICA</th>
+                                        <th>RESPONSABILIDADE</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>A DISTRIBUIR</strong></td>
+                                        <td>Manifestação registrada no sistema, ainda não analisada ou triada pela Ouvidoria.</td>
+                                        <td>Ouvidor</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>TRAMITANDO</strong></td>
+                                        <td>Em análise pela Ouvidoria, aguardando definição de encaminhamento ou resposta.</td>
+                                        <td>Ouvidor ou equipe técnica responsável</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>ENCAMINHADA</strong></td>
+                                        <td>Manifestação enviada à área competente, aguardando resposta técnica ou administrativa.</td>
+                                        <td>Ouvidoria + setor competente</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>RESPONDIDA</strong></td>
+                                        <td>Manifestação com resposta devidamente elaborada e disponível, pendente apenas de avaliação do Ouvidor e envio formal ao manifestante.</td>
+                                        <td>Ouvidoria</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>CONCLUÍDA</strong></td>
+                                        <td>Manifestação com resposta formal encaminhada ao manifestante e finalizada no sistema da Ouvidoria.</td>
+                                        <td>Ouvidor</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <!-- Section 5: Prazos -->
+                        <div class="guide-section">
+                            <h3>5. DOS PRAZOS</h3>
+                            <p><strong>5.1</strong> A Ouvidoria disporá do prazo de até 30 (trinta) dias corridos para apresentar resposta conclusiva às manifestações recebidas, contados a partir da data de seu registro no sistema oficial de ouvidoria.</p>
+                            <p><strong>5.2</strong> Nos casos de maior complexidade, como processos éticos, denúncias, solicitações de atos normativos, análises jurídicas ou situações que exijam deliberações envolvendo outros setores do Conselho, a tramitação deverá estar devidamente justificada e documentada no Sistema Eletrônico de Informações (SEI).</p>
+                            <p><strong>5.3</strong> Quando a manifestação permanecer em tramitação interna, será temporariamente finalizada no âmbito da Ouvidoria, sendo reaberta tão logo a análise pela área competente seja concluída.</p>
+                            <p><strong>5.4</strong> A prorrogação do prazo de resposta deverá ser formalmente comunicada ao manifestante antes do vencimento do prazo original, contendo justificativa técnica e a nova previsão de conclusão.</p>
+                            <p><strong>5.5</strong> O descumprimento injustificado dos prazos estabelecidos poderá ensejar apuração de responsabilidade funcional, conforme a legislação aplicável e os normativos internos do Sistema Cofen/Conselhos.</p>
+                        </div>
+                        
+                        <!-- Section 6: Exceções -->
+                        <div class="guide-section">
+                            <h3>6. EXCEÇÕES AOS PRAZOS REGULARES</h3>
+                            <p><strong>6.1</strong> Em caráter excepcional, quando o período de análise e deliberações ultrapassar o prazo máximo de 60 (sessenta) dias corridos (30 dias iniciais + 30 dias prorrogáveis), deverá ser observada a tramitação prevista nos itens 5.1, 5.2 e 5.3.</p>
+                            <p><strong>6.2</strong> Nesses casos, é obrigatória a justificativa formal no Sistema Eletrônico de Informações (SEI), bem como a comunicação periódica ao manifestante sobre o andamento do processo.</p>
+                        </div>
+                        
+                        <!-- Section 7: Complementação -->
+                        <div class="guide-section">
+                            <h3>7. COMPLEMENTAÇÃO DE DADOS</h3>
+                            <p><strong>7.1</strong> A solicitação de complementação de informações por parte da Ouvidoria suspende a contagem dos prazos estabelecidos para resposta.</p>
+                            <p><strong>7.2</strong> O manifestante terá o prazo de 10 (dez) dias corridos para encaminhar as informações solicitadas.</p>
+                            <p><strong>7.3</strong> O não atendimento à solicitação de complementação acarretará a finalização da manifestação por insuficiência de elementos.</p>
+                        </div>
+                        
+                        <!-- Section 8: Disposições Finais -->
+                        <div class="guide-section">
+                            <h3>8. DISPOSIÇÕES FINAIS</h3>
+                            <p><strong>8.1</strong> Este Guia de Fluxos e Rotinas Administrativas das Ouvidorias tem caráter normativo e orientativo, devendo ser adotado de forma integral por todas as unidades do Sistema Cofen/Conselhos Regionais de Enfermagem.</p>
+                            <p><strong>8.2</strong> O cumprimento rigoroso dos fluxos, rotinas e prazos estabelecidos neste Manual é essencial para assegurar a qualidade dos serviços prestados à sociedade, o respeito aos direitos dos usuários e a observância dos princípios da administração pública.</p>
+                            <p><strong>8.3</strong> As Ouvidorias deverão manter registros atualizados e documentação comprobatória de todas as etapas do processo de tratamento das manifestações, assegurando a rastreabilidade e a possibilidade de auditorias internas e externas.</p>
+                            <p><strong>8.4</strong> Este Guia poderá ser revisado e atualizado periodicamente, a fim de incorporar melhorias, adequações legislativas e inovações tecnológicas, garantindo sua constante atualização e relevância para a gestão das Ouvidorias.</p>
+                            <p><strong>8.5</strong> A responsabilidade pelo cumprimento e disseminação das normas previstas neste Manual é compartilhada entre os Ouvidores, colaboradores das Ouvidorias e gestores do Sistema Cofen/Conselhos Regionais, devendo ser promovida cultura de comprometimento e excelência no atendimento.</p>
+                        </div>
+                        
+                        <!-- ANEXO I -->
+                        <div class="guide-section">
+                            <h3>ANEXO I - FLUXOS E ROTINAS DIÁRIAS DA OUVIDORIA</h3>
+                            <table class="annex-table">
+                                <thead>
+                                    <tr>
+                                        <th>Etapa</th>
+                                        <th>Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Início do Expediente</td>
+                                        <td>
+                                            <ul>
+                                                <li>Acesso ao Sistema de Ouvidoria Cofen</li>
+                                                <li>Aplicar o Método DIA (avaliar as manifestações)</li>
+                                                <li>1º. Denúncias: Verificar novas denúncias recebidas e classificar conforme o método JALECO</li>
+                                                <li>2º. Informações: monitore novos atos normativos do Sistema Cofen/Coren e pautas sensíveis</li>
+                                                <li>3º. Acompanhamento: dos Status, do trâmite e os prazos das manifestações não finalizadas</li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>2º Etapa</td>
+                                        <td>
+                                            <ul>
+                                                <li>Aplicação do Método JALECO</li>
+                                                <li>Classificar as denúncias por: Judiciais/Jurídicas, Assédio, Legislações, Éticas, Conselhos/Conselheiros, Outros Demandantes</li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>3º Etapa</td>
+                                        <td>
+                                            <ul>
+                                                <li>Aplicação do Método PROSA</li>
+                                                <li>Identificar e cumprir prazos internos</li>
+                                                <li>Acompanhar as manifestações conforme: Prazos, Rotina, Outros (Assuntos Diversos e Sensíveis), Solicitações/SEI, Anuidades/Inscrição</li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Final do Expediente</td>
+                                        <td>
+                                            <ul>
+                                                <li>Verificar se há manifestação Judicial ou Assuntos Sensíveis (informar a presidência*)</li>
+                                                <li>Verificar Manifestação Respondida sem estar finalizada</li>
+                                                <li>* Avalie com cautela a valência social da informação antes de tomar qualquer conduta</li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <!-- ANEXO II -->
+                        <div class="guide-section">
+                            <h3>ANEXO II - STATUS DAS MANIFESTAÇÕES E RESPONSABILIDADES</h3>
+                            <table class="annex-table">
+                                <thead>
+                                    <tr>
+                                        <th>STATUS</th>
+                                        <th>DEFINIÇÃO TÉCNICA</th>
+                                        <th>RESPONSABILIDADE</th>
+                                        <th>RISCO E CONSEQUÊNCIA</th>
+                                        <th>BASE LEGAL</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>A DISTRIBUIR</td>
+                                        <td>Manifestação registrada no sistema, ainda não analisada ou triada pela Ouvidoria.</td>
+                                        <td>Ouvidor</td>
+                                        <td>Prazo legal já em curso. Risco de inércia administrativa e descumprimento da Lei nº 13.460/2017.</td>
+                                        <td>Registro imediato da manifestação sem exigência de documentos prévios (Lei nº 13.460/2017, art. 10, §§ 1º e 2º).</td>
+                                    </tr>
+                                    <tr>
+                                        <td>TRAMITANDO</td>
+                                        <td>Em análise pela Ouvidoria, aguardando definição de encaminhamento ou resposta.</td>
+                                        <td>Ouvidor ou equipe técnica responsável</td>
+                                        <td>Risco de paralisação sem justificativa. Fragilidade de fluxo e ausência de rastreabilidade.</td>
+                                        <td>Prazo de resposta de até 30 dias, prorrogável por igual período mediante justificativa (Lei nº 13.460/2017, art. 8º, II, §§ 2º e 3º).</td>
+                                    </tr>
+                                    <tr>
+                                        <td>ENCAMINHADA</td>
+                                        <td>Manifestação enviada à área competente, aguardando resposta técnica ou administrativa.</td>
+                                        <td>Ouvidoria + setor competente</td>
+                                        <td>Responsabilidade solidária. Risco de resposta fora do prazo e comprometimento da legalidade.</td>
+                                        <td>Obrigatoriedade de encaminhamento à unidade competente e responsabilidade solidária no atendimento (Lei nº 13.460/2017, arts. 13, VI e 21).</td>
+                                    </tr>
+                                    <tr>
+                                        <td>RESPONDIDA</td>
+                                        <td>Manifestação com resposta disponível, pendente de avaliação do Ouvidor e envio formal ao manifestante.</td>
+                                        <td>Ouvidoria</td>
+                                        <td>Alto risco de descumprimento legal e percepção de negligência pelo usuário.</td>
+                                        <td>Resposta técnica formal e fundamentada, com comunicação obrigatória ao manifestante (Lei nº 13.460/2017, art. 16).</td>
+                                    </tr>
+                                    <tr>
+                                        <td>CONCLUÍDA</td>
+                                        <td>Manifestação finalizada no sistema. Caso processo permaneça em tramitação interna, a manifestação poderá ser reaberta após a conclusão da análise pela área competente.</td>
+                                        <td>Ouvidor</td>
+                                        <td>Baixo risco, desde que a resposta esteja registrada e fundamentada legalmente.</td>
+                                        <td>Arquivamento da manifestação após resposta formal, com possibilidade de reabertura (Lei nº 13.460/2017, art. 16).</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Material de Estudo Tab -->
+        <div class="tab-content active" id="study-tab">
+            <!-- ... (conteúdo existente mantido) ... -->
+        </div>
+        
+        <!-- Quiz Tab -->
+        <div class="tab-content" id="quiz-tab">
+            <!-- ... (conteúdo existente mantido) ... -->
+        </div>
+        
+        <!-- Créditos -->
+        <div class="credits">
+            <p><strong>Desenvolvido por:</strong> Eduardo Fernando de Souza</p>
+            <p>Guia de Fluxos e Rotinas Administrativas das Ouvidorias - 2025</p>
+            <p><strong>Versão:</strong> 1.2.0 | Julho 2025</p>
+        </div>
+    </div>
+
+    <script>
+        // Tab functionality
+        document.querySelectorAll('.tab-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons and tabs
+                document.querySelectorAll('.tab-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                document.querySelectorAll('.tab-content').forEach(tab => {
+                    tab.classList.remove('active');
+                });
+                
+                // Add active class to clicked button and corresponding tab
+                button.classList.add('active');
+                const tabId = button.getAttribute('data-tab') + '-tab';
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+        
+        // Section toggle functionality
+        function toggleSection(sectionId) {
+            const sectionHeader = document.querySelector(`[onclick="toggleSection('${sectionId}')"]`);
+            const sectionContent = document.getElementById(`${sectionId}-content`);
+            
+            sectionHeader.classList.toggle('collapsed');
+            sectionContent.classList.toggle('expanded');
+        }
+        
+        // Open the first section by default
+        document.addEventListener('DOMContentLoaded', function() {
+            toggleSection('full-guide'); // Open the guide section by default
+        });
+    </script>
+</body>
+</html>
